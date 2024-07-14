@@ -17,6 +17,7 @@ urlprobe accepts the file path through the -f flag:
 youtube.com
 facebook.com
 yahoo.com
+
 ▶ urlprobe -f example.txt
 [No Response] http://youtube.com:443 - IP: 142.250.191.238, 2607:f8b0:4009:80b::200e
 [No Response] https://youtube.com:80 - IP: 142.250.191.238, 2607:f8b0:4009:80b::200e
