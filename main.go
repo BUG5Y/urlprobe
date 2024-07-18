@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"urlprobe/core"
+	"github.com/bug5y/urlprobe/core"
 )
 
 func main() {
