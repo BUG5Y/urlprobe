@@ -6,7 +6,6 @@ import (
 	"os"
 	"sync"
 	"time"
-	"strings"
 	"golang.org/x/sync/semaphore"
 	"golang.org/x/net/context"
 )
@@ -41,27 +40,23 @@ func Start(filePath string) {
 	results := make(chan string, len(urls)*len(config.Protocols)*len(config.Ports))
 
     for _, url := range urls {
-        host := strings.Split(url, ":")[0] // Extract host from URL
-        ip := resolveIP(host)
-        
         for _, protocol := range config.Protocols {
             for _, port := range config.Ports {
                 wg.Add(1)
-                go func(u, p string, port string, ip string) {
+                go func(u, p, port string) {
                     defer wg.Done()
                     if err := sem.Acquire(ctx, 1); err != nil {
                         fmt.Printf("Failed to acquire semaphore: %v\n", err)
                         return
                     }
                     defer sem.Release(1)
-
-                    active := sendRequest(p, u, port, config.Timeout)
+                    active, ip := sendRequest(p, u, port, config.Timeout)
                     if active {
                         results <- fmt.Sprintf("\033[32m[Active URL] %s://%s:%s - IP: %s\033[0m", p, u, port, ip)
                     } else {
                         results <- fmt.Sprintf("[No Response] %s://%s:%s - IP: %s", p, u, port, ip)
                     }
-                }(url, protocol, port, ip)
+                }(url, protocol, port)
             }
         }
     }
