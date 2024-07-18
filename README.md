@@ -28,5 +28,7 @@ yahoo.com
 [No Response] https://youtube.com:3000 - IP: 
 [No Response] http://youtube.com:8080 - IP: 
 [No Response] https://youtube.com:4443 - IP:
+[No Response] http://yahoo.com:443 - IP: 98.137.11.163
+
 
 ```
