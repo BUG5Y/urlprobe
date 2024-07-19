@@ -15,14 +15,14 @@ func main() {
 	defaultThreads := 20
 	defaultProtocols := []string{"http", "https"}
 	defaultPorts := []string{"80", "443", "8080", "8443", "3000", "4443", "8000", "8888", "5000", "8008"}
-	defaultHeader := "Mozilla/5.0 (compatible; urlprobe/1.0)"
+	defaultUserAgent := "Mozilla/5.0 (compatible; urlprobe/1.0)"
 
 	filePath := flag.String("f", "", "Path to the input file")
 	threads := flag.Int("t", defaultThreads, "Max threads")
 	flag.DurationVar(&config.Timeout, "timeout", defaultTimeout, "Timeout duration")
 	protocols := flag.String("p", strings.Join(defaultProtocols, ","), "Comma-separated list of protocols")
 	ports := flag.String("ports", strings.Join(defaultPorts, ","), "Comma-separated list of ports")
-	headers := flag.String("header", defaultHeader, "Custom headers to add to each request (can be used multiple times)")
+	userAgent := flag.String("header", defaultUserAgent, "Custom user agent to add to each request")
 	help := flag.Bool("h", false, "Show help")
 	
 	flag.Usage = func() {
@@ -45,8 +45,8 @@ func main() {
 		config.FilePath = *filePath
 	}
 
-	if *headers != "" {
-		config.Headers = strings.Split(*headers, ",")
+	if *userAgent != "" {
+		config.UserAgent = *userAgent
 	}
 
 	config.MaxConcurrency = *threads
