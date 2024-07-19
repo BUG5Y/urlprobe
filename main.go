@@ -9,6 +9,7 @@ import (
 
 func main() {
 	filePath := flag.String("f", "", "Path to the input file")
+	threads := flag.Int("t", 20, "Max threads")
 
 	flag.Parse()
 
@@ -18,5 +19,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	core.Start(*filePath)
+	core.Start(*filePath, *threads)
 }
