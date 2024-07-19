@@ -23,14 +23,14 @@ var (
 	Ports = []string{"80", "443", "8080", "8443", "3000", "4443", "8000", "8888", "5000", "8008"}
 )
 
-func Start(filePath string) {
+func Start(filePath string, threads int) {
 	urls, err := readURLs(filePath)
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return
 	}
 
-	config := setConfiguration()
+	config := setConfiguration(threads)
 
 	sem := semaphore.NewWeighted(int64(config.MaxConcurrency))
 	ctx := context.Background()
@@ -85,9 +85,9 @@ func readURLs(filePath string) ([]string, error) {
 	return urls, scanner.Err()
 }
 
-func setConfiguration() Config {
+func setConfiguration(threads int) Config {
 	config := Config{
-		MaxConcurrency: MaxConcurrency,
+		MaxConcurrency: threads,
 		Timeout:        Timeout,
 		Protocols:      Protocols,
 		Ports:          Ports,
