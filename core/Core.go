@@ -15,22 +15,16 @@ type Config struct {
 	Timeout        time.Duration
 	Protocols      []string
 	Ports          []string
+	UserAgent      string
+	FilePath 	   string
 }
 
-var (
-	Timeout = 15*time.Second
-	Protocols = []string{"http", "https"}
-	Ports = []string{"80", "443", "8080", "8443", "3000", "4443", "8000", "8888", "5000", "8008"}
-)
-
-func Start(filePath string, threads int) {
-	urls, err := readURLs(filePath)
+func Start(config Config) {
+	urls, err := readURLs(config.FilePath)
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return
 	}
-
-	config := setConfiguration(threads)
 
 	sem := semaphore.NewWeighted(int64(config.MaxConcurrency))
 	ctx := context.Background()
@@ -49,7 +43,7 @@ func Start(filePath string, threads int) {
                         return
                     }
                     defer sem.Release(1)
-                    active, ip := sendRequest(p, u, port, config.Timeout)
+                    active, ip := sendRequest(p, u, port, config.Timeout, config.UserAgent)
                     if active {
                         results <- fmt.Sprintf("\033[32m[Active URL] %s://%s:%s - IP: %s\033[0m", p, u, port, ip)
                     } else {
@@ -83,14 +77,4 @@ func readURLs(filePath string) ([]string, error) {
 		urls = append(urls, scanner.Text())
 	}
 	return urls, scanner.Err()
-}
-
-func setConfiguration(threads int) Config {
-	config := Config{
-		MaxConcurrency: threads,
-		Timeout:        Timeout,
-		Protocols:      Protocols,
-		Ports:          Ports,
-	}
-	return config
 }
