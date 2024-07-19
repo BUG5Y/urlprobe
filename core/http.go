@@ -9,7 +9,7 @@ import (
     "context"
 )
 
-func sendRequest(protocol, url string, portStr string, timeout time.Duration) (bool, string) {
+func sendRequest(protocol, url string, portStr string, timeout time.Duration, userAgent string) (bool, string) {
     port, err := strconv.Atoi(portStr)
     if err != nil {
         fmt.Println("Error:", err)
@@ -47,7 +47,7 @@ func sendRequest(protocol, url string, portStr string, timeout time.Duration) (b
     if err != nil {
         return false, ipAddr
     }
-
+    req.Header.Set("User-Agent", userAgent)
     resp, err := client.Do(req)
     if err != nil {
         return false, ipAddr
