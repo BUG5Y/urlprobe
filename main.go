@@ -15,14 +15,14 @@ func main() {
 	defaultThreads := 20
 	defaultProtocols := []string{"http", "https"}
 	defaultPorts := []string{"80", "443", "8080", "8443", "3000", "4443", "8000", "8888", "5000", "8008"}
-	defaultUserAgent := "Mozilla/5.0 (compatible; urlprobe/1.0)"
+	defaultUserAgent := "Mozilla/5.0 (Windows NT 10.0; Android 13; Mobile; rv:120.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/95.0.0.0"
 
 	filePath := flag.String("f", "", "Path to the input file")
 	threads := flag.Int("t", defaultThreads, "Max threads")
 	flag.DurationVar(&config.Timeout, "timeout", defaultTimeout, "Timeout duration")
 	protocols := flag.String("p", strings.Join(defaultProtocols, ","), "Comma-separated list of protocols")
 	ports := flag.String("ports", strings.Join(defaultPorts, ","), "Comma-separated list of ports")
-	userAgent := flag.String("header", defaultUserAgent, "Custom user agent to add to each request")
+	userAgent := flag.String("header", defaultUserAgent, "Custom user agent to add to each request. Default: Mozilla/5.0 (Windows NT 10.0; Android 13; Mobile; rv:120.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/95.0.0.0")
 	help := flag.Bool("h", false, "Show help")
 	
 	flag.Usage = func() {
