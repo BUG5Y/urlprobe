@@ -18,7 +18,6 @@ type Config struct {
 }
 
 var (
-	MaxConcurrency = 20
 	Timeout = 15*time.Second
 	Protocols = []string{"http", "https"}
 	Ports = []string{"80", "443", "8080", "8443", "3000", "4443", "8000", "8888", "5000", "8008"}
