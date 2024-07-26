@@ -5,7 +5,7 @@ Probe a list of domains for working web servers on common ports.
 ## Install
 
 ```
-▶ go install github.com/BUG5Y/urlprobe@latest
+▶ go install github.com/bug5y/urlprobe@latest
 ```
 
 ## Usage
