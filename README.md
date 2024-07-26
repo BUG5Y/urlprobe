@@ -8,9 +8,26 @@ Probe a list of domains for working web servers on common ports.
 ▶ go install github.com/bug5y/urlprobe@latest
 ```
 
-## Usage
+## Example Usage
 
-urlprobe accepts the file path through the -f flag:
+```
+▶ urlprobe -h
+Usage of urlprobe:
+  -f string
+        Path to the input file
+  -h    Show help
+  -header string
+        Custom user agent to add to each request. Default: Mozilla/5.0 (Windows NT 10.0; Android 13; Mobile; rv:120.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/95.0.0.0 (default "Mozilla/5.0 (Windows NT 10.0; Android 13; Mobile; rv:120.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/95.0.0.0")
+  -p string
+        Comma-separated list of protocols (default "http,https")
+  -ports string
+        Comma-separated list of ports (default "80,443,8080,8443,3000,4443,8000,8888,5000,8008")
+  -t int
+        Max threads (default 20)
+  -timeout duration
+        Timeout duration (default 15s)
+
+```
 
 ```
 ▶ cat example.txt                                                                           
